@@ -171,3 +171,13 @@ footer {
   padding: 20px;
   color: #666;
 }
+
+ul {
+  list-style-type: none; /* Hide bullet points */
+}
+
+.delete-icon {
+  cursor: pointer;
+  margin-left: 10px;
+  color: red;
+}

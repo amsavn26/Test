@@ -19,6 +19,15 @@ current_dir = Path(__file__).parent
 app.mount("/static", StaticFiles(directory=os.path.join(Path(__file__).parent,
           "static")), name="static")
 
+@app.delete("/activities/{activity_name}/participants/{email}")
+async def unregister_participant(activity_name: str, email: str):
+    if activity_name not in activities:
+        raise HTTPException(status_code=404, detail="Activity not found")
+    if email not in activities[activity_name]["participants"]:
+        raise HTTPException(status_code=404, detail="Participant not found")
+    activities[activity_name]["participants"].remove(email)
+    return {"message": "Participant unregistered successfully"}
+
 # In-memory activity database
 activities = {
     "Chess Club": {
